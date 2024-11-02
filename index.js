@@ -12,6 +12,17 @@ const VERIFY_TOKEN = 'pagebot';
 const PAGE_ACCESS_TOKEN = fs.readFileSync('token.txt', 'utf8').trim();
 const COMMANDS_PATH = path.join(__dirname, 'commands');
 
+// New route to serve docs.html
+app.get('/docs', (req, res) => {
+  const docsPath = path.join(__dirname, 'docs.html');
+  fs.access(docsPath, fs.constants.F_OK, (err) => {
+    if (err) {
+      return res.status(404).send('docs.html not found');
+    }
+    res.sendFile(docsPath);
+  });
+});
+
 // Webhook verification
 app.get('/webhook', (req, res) => {
   const { 'hub.mode': mode, 'hub.verify_token': token, 'hub.challenge': challenge } = req.query;
@@ -32,7 +43,6 @@ app.post('/webhook', (req, res) => {
   const { body } = req;
 
   if (body.object === 'page') {
-    // Ensure entry and messaging exist before iterating
     body.entry?.forEach(entry => {
       entry.messaging?.forEach(event => {
         if (event.message) {
@@ -81,12 +91,10 @@ const loadMenuCommands = async (isReload = false) => {
   const commands = loadCommands();
 
   if (isReload) {
-    // Delete existing commands if reloading
     await sendMessengerProfileRequest('delete', '/me/messenger_profile', { fields: ['commands'] });
     console.log('Menu commands deleted successfully.');
   }
 
-  // Load new or updated commands
   await sendMessengerProfileRequest('post', '/me/messenger_profile', {
     commands: [{ locale: 'default', commands }],
   });

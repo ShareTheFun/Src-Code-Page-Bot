@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uptime Is One</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #6a82fb, #fc5c7d);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        h1 {
+            font-size: 6rem;
+            margin: 0;
+            animation: slideIn 1s forwards;
+            transform: translateY(-100%);
+            opacity: 0;
+            animation-delay: 0.5s;
+        }
+
+        p {
+            font-size: 2rem;
+            margin: 20px 0;
+            animation: fadeIn 1s forwards;
+            transform: translateY(50%);
+            opacity: 0;
+            animation-delay: 1s;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .animated-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.1), rgba(0,0,0,0.1));
+            animation: backgroundAnimation 3s infinite linear;
+            z-index: -1;
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background-size: 0%;
+            }
+            50% {
+                background-size: 200%;
+            }
+            100% {
+                background-size: 0%;
+            }
+        }
+
+        .button {
+            padding: 15px 30px;
+            background-color: #ff6f61;
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .button:hover {
+            background-color: #ff4e3a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="animated-background"></div>
+        <h1>Uptime Is One</h1>
+        <p>Your service reliability matters.</p>
+        <a href="#" class="button">Learn More</a>
+    </div>
+</body>
+</html>
